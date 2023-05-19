@@ -7,8 +7,8 @@ import org.apache.spark.sql.types.{IntegerType, StringType, StructType}
 
 object Question1 {
 
-  case class accountData(customerId: String, accountId: String, balance: Int)
-  case class customerData(customerId: String, forename: String, surname: String)
+  case class accountData(customerID: String, accountID: String, balance: Int)
+  case class customerData(customerID: String, forename: String, surname: String)
   /** Our main function where the action happens */
   def main(args: Array[String]): Unit = {
 
@@ -22,14 +22,9 @@ object Question1 {
       .master("local[*]")
       .getOrCreate()
 
-    // Create schema
-    val accountDataSchema = new StructType()
-      .add("customerId", StringType, nullable = true)
-      .add("accountId", StringType, nullable = true)
-      .add("balance", IntegerType, nullable = true)
-
+    //Schema
     val customerDataSchema = new StructType()
-      .add("customerId", StringType, nullable = true)
+      .add("customerID", StringType, nullable = true)
       .add("forename", StringType, nullable = true)
       .add("surname", StringType, nullable = true)
 
@@ -49,28 +44,23 @@ object Question1 {
       .csv("src/main/resources/data/customer_data1.txt")
       .as[customerData]
 
-    val numberOfAccounts = accountDataFrame
-      .groupBy("customerId").agg(count("customerId").alias("numberOfAccounts"))
+    val numberAccounts = accountDataFrame
+      .groupBy("customerID").agg(count("customerID").alias("numberAccounts"))
 
     val totalBalance = accountDataFrame
-      .groupBy("customerId").agg(round(sum("balance"), 2).alias("totalBalance"))
+      .groupBy("customerID").agg(round(sum("balance"), 2).alias("totalBalance"))
 
-    val accountArray = accountDataFrame.groupBy("customerId").agg(collect_list("accountId").as("accounts"))
-/*
-    customerDataFrame.join(accountDataFrame, Seq("customerId"), "inner")
-      .select(customerDataFrame("customerId"), customerDataFrame("forename"), customerDataFrame("surname"),accountDataFrame("balance"),
-        accountDataFrame("accountId") )
-      .show()*/
+    val accountArray = accountDataFrame.groupBy("customerID").agg(collect_list("accountID").as("accounts"))
 
-    val joinedDataFrame = accountDataFrame.join(customerDataFrame, accountDataFrame("customerId") === customerDataFrame("customerId"), "inner")
-      .join(numberOfAccounts, Seq("customerId"), "inner")
-      .join(totalBalance, Seq("customerId"), "inner")
-      .join(accountArray, Seq("customerId"), "inner")
-      .select(customerDataFrame("customerId"), customerDataFrame("forename"), customerDataFrame("surname"),accountDataFrame("balance"),
-        accountArray("accounts"), totalBalance("totalBalance"), numberOfAccounts("numberOfAccounts") )
+    val joinedDataFrame = accountDataFrame.join(customerDataFrame, accountDataFrame("customerID") === customerDataFrame("customerID"), "inner")
+      .join(numberAccounts, Seq("customerID"), "inner")
+      .join(totalBalance, Seq("customerID"), "inner")
+      .join(accountArray, Seq("customerID"), "inner")
+      .select(customerDataFrame("customerID"), customerDataFrame("forename"), customerDataFrame("surname"),accountDataFrame("balance"),
+        accountArray("accounts"), totalBalance("totalBalance"), numberAccounts("numberAccounts") )
       .distinct()
 
-    val finalDataFrame = joinedDataFrame.withColumn("AverageBalance", $"totalBalance" / $"numberOfAccounts")
+    val finalDataFrame = joinedDataFrame.withColumn("averageBalance", $"totalBalance" / $"numberAccounts")
 
 
     finalDataFrame.show(truncate = false)
