@@ -1,4 +1,4 @@
-package version
+package Question
 
 case class accountData(customerID: String, accountID: String, balance: Int)
 case class customerData(customerID: String, forename: String, surname: String)

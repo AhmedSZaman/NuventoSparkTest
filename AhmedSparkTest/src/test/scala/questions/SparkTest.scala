@@ -4,7 +4,7 @@ import org.apache.spark.sql.Encoders._
 import org.apache.spark.sql.SparkSession
 import org.scalatest._
 import org.scalatest.funsuite.AnyFunSuite
-import version._
+import Question._
 class SparkTest extends AnyFunSuite with BeforeAndAfterAll {
   val helperFunc = new QuestionFunctions()
 
