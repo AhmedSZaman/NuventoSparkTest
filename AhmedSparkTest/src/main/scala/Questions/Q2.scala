@@ -3,7 +3,7 @@ import org.apache.log4j._
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types.{IntegerType, StringType, StructType}
-import version.{address, parsedAddress}
+import version.{addressData, parsedAddressData}
 case class customerAccountData(customerID: String, forename: String, surname: String,accounts: Array[String],
                        balance: Int, totalBalance: Long, numberAccounts: Long, averageBalance: Double )
 case class address(addressId:String, customerId: String, address:String)

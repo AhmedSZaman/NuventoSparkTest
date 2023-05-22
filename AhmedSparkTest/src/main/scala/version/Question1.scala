@@ -7,8 +7,7 @@ import org.apache.spark.sql.types.{StringType, StructType}
 
 import scala.reflect.runtime.universe._
 
-case class accountData(customerID: String, accountID: String, balance: Int)
-case class customerData(customerID: String, forename: String, surname: String)
+
 object Question1 {
 
   def main(args: Array[String]): Unit = {
@@ -44,8 +43,10 @@ object Question1 {
       .as[customerData]
 */
     import spark.implicits._
-    val accountDataFrame = loadDataFrame[accountData]("src/main/resources/data/account_data1.txt")
-    val customerDataFrame = loadDataFrame[customerData]("src/main/resources/data/customer_data1.txt")
+    //val accountDataFrame = loadDataFrame[accountData]("src/main/resources/data/account_data1.txt")
+    //val customerDataFrame = loadDataFrame[customerData]("src/main/resources/data/customer_data1.txt")
+    val accountDataFrame = loadDataFrame[accountData]("src/main/resources/data/sampleAccountData.txt")
+    val customerDataFrame = loadDataFrame[customerData]("src/main/resources/data/sampleCustomerData.txt")
     val CustomerAccountOutput = createCustomerAccountDataFrame(spark, accountDataFrame, customerDataFrame)
 /*
     val numberAccounts = accountDataFrame
@@ -72,23 +73,24 @@ object Question1 {
     CustomerAccountOutput.show(truncate = false)
 
     CustomerAccountOutput.printSchema()
-
-    CustomerAccountOutput.
+    saveDataFrame(CustomerAccountOutput, "src/main/resources/data/output/Question1")
+    /*CustomerAccountOutput.
       coalesce(1).
-      write.mode("overwrite").parquet("src/main/resources/data/output/Question1")
+      write.mode("overwrite").parquet("src/main/resources/data/output/Question1")*/
   spark.close()
   }
 def loadDataFrame[T](path: String)(implicit spark: SparkSession, encoder: Encoder [T]): Dataset[T]={
 
   val loadDataFrame = spark.read
     .option("header", "true")
+    .option("sep", ",")
     .option("inferSchema", "true")
     .csv(path)
     .as[T]
 
   loadDataFrame
 }
-  def createCustomerAccountDataFrame(implicit spark: SparkSession, accountDataFrame: Dataset[accountData], customerDataFrame: Dataset[customerData]): DataFrame={
+ def createCustomerAccountDataFrame(implicit spark: SparkSession, accountDataFrame: Dataset[accountData], customerDataFrame: Dataset[customerData]): Dataset[customerAccountData]={
     import spark.implicits._
     val numberAccounts = accountDataFrame
       .groupBy("customerID").agg(count("accountID").alias("numberAccounts"))
@@ -110,8 +112,13 @@ def loadDataFrame[T](path: String)(implicit spark: SparkSession, encoder: Encode
 
     val CustomerAccountOutput = joinedDataFrame
       .withColumn("averageBalance", round($"totalBalance" / $"numberAccounts", 2).cast("double"))
+      .as[customerAccountData]
 
-    CustomerAccountOutput
+     CustomerAccountOutput
   }
-
+ def saveDataFrame( CustomerAccountOutput: Dataset[customerAccountData], path: String): Unit={
+   CustomerAccountOutput.
+     coalesce(1).
+     write.mode("overwrite").parquet("src/main/resources/data/output/Question1")
+ }
 }
