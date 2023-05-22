@@ -1,0 +1,4 @@
+addressId,customerId,address
+ADR243,IND0325,"932, Oxford Street, London, United Kingdom"
+ADR036,IND0221,"841, East 14th Street, New York, United States of America"
+ADR118,IND0147,"902, High Street, Sydney, Australia"
