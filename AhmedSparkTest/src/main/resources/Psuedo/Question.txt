@@ -1,0 +1,28 @@
+accountDataSet = LOAD account_data.txt
+customerDataSet = LOAD customer_data.txt
+
+
+numberAccounts = accountDataSet
+	GROUPBY("CustomerID")
+	COUNT("accountID")
+
+totalBalance = accountDataSet
+	GROUPBY("customerID")
+	SUM("balance")
+
+accountArray = accountDataSet
+	GROUPBY("customerID")
+	TOLIST("accountID")
+
+val joinedDataSet = accountDataSet JOIN(customerDataSet ON customerID)
+	JOIN(numberAccounts ON "customerID")
+	JOIN(totalBalance ON "customerID")
+	JOIN(accountArray ON "customerID") 
+	SELECT ("customerID","forename","surname","accounts","totalBalance","numberAccounts")
+	DISTINCT()
+
+
+val customerDocumentDataSet = joinDataSet
+	ADDCOLOUMN("averageBalance" = ("totalBalance"/ "numberAccounts")
+
+customerDocumentDataSet savefile(customerDocumentDataSet.parquet)

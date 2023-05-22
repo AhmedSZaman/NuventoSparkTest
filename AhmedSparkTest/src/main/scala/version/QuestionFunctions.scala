@@ -16,7 +16,7 @@ class QuestionFunctions {
     loadDataSet
   }
 
-  def saveDataSet[T](path: String, dataSetToSave: Dataset[T])(encoder: Encoder [T]): Unit = {
+  def saveDataSet[T](path: String, dataSetToSave: Dataset[T]): Unit = {
     dataSetToSave.coalesce(1).write.mode("overwrite").parquet(path)
   }
   def createCustomerAccountDataSet(implicit spark: SparkSession, accountDataSet: Dataset[accountData], customerDataSet: Dataset[customerData]): Dataset[customerAccountData]={
@@ -52,7 +52,7 @@ class QuestionFunctions {
     //addressDataSet.join(customerAccountDataSet, Seq("customerId")).show(truncate = false)
 
     val parsedAddressDataSet = addressDataSet
-      .select("address", "addressID", "customerID")
+      .select("address", "customerID")
       .withColumn("streetNumber", split(col("address"), ",")(0))
       .withColumn("streetName", split(col("address"), ",")(1))
       .withColumn("city", split(col("address"), ",")(2))

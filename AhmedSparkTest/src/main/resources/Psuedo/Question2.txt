@@ -1,0 +1,21 @@
+addressDataSet = LOAD Question1.parquet
+
+case class parsedAddress{
+	STRING streetNumber
+	STRING streetName
+	STRING city
+	STRING Country
+}
+
+parsedAddressDataSet = addressDataFrame
+	SELECT("address", "customerID")
+	streetNumber = SPLIT(address , ",")(0)
+	streetName= SPLIT(address , ",")(1)
+	city= SPLIT(address , ",")(2)
+	Country= SPLIT(address , ",")(3)
+	AS[parsedAddress]
+
+customerDocumentDataSet = parsedAddressDataSet JOIN(customerAccountDataSet ON customerID)
+	SELECT ("customerID","forename","surname","accounts","totalBalance","numberAccounts")
+	DISTINCT()
+	SHOW()

@@ -1,18 +1,14 @@
 package questions
 import org.apache.log4j.{Level, Logger}
-import org.jetbrains.annotations.TestOnly
+import org.apache.spark.sql.Encoders._
 import org.apache.spark.sql.SparkSession
 import org.scalatest._
 import org.scalatest.funsuite.AnyFunSuite
 import version._
-import version.QuestionFunctions
-import org.apache.spark.sql.Encoders._
-
-import scala.collection.mutable
 class SparkTest extends AnyFunSuite with BeforeAndAfterAll {
   val helperFunc = new QuestionFunctions()
 
-  @transient lazy val spark = SparkSession
+  @transient lazy val spark: SparkSession = SparkSession
     .builder()
     .appName("Quest2ion1")
     .master("local[*]")
@@ -30,22 +26,22 @@ class SparkTest extends AnyFunSuite with BeforeAndAfterAll {
     assert(rCount == 4, "record count should be 4")
   }
   test("Create Customer Account DataSet") {
-    val sampleAccountDataFrame = helperFunc.loadDataSet[accountData]("src/test/resources/sampleAccountData.txt")(spark, product[accountData])
-    val sampleCustomerDataFrame = helperFunc.loadDataSet[customerData]("src/test/resources/sampleCustomerData.txt")(spark, product[customerData])
-    val sampleCustAccDF = helperFunc.createCustomerAccountDataSet(spark, sampleAccountDataFrame, sampleCustomerDataFrame)
+    val accountDataSet = helperFunc.loadDataSet[accountData]("src/test/resources/sampleAccountData.txt")(spark, product[accountData])
+    val customerDataSet = helperFunc.loadDataSet[customerData]("src/test/resources/sampleCustomerData.txt")(spark, product[customerData])
+    val customerAccountDataSet = helperFunc.createCustomerAccountDataSet(spark, accountDataSet, customerDataSet)
 
     val expectedSchema = product[customerAccountData].schema
-    val actualSchema = sampleCustAccDF.schema
+    val actualSchema = customerAccountDataSet.schema
     assert(expectedSchema.fieldNames.sameElements(actualSchema.fieldNames), "Names should match case class")
     for (fieldName <- expectedSchema.fieldNames) {
       assert(expectedSchema(fieldName).dataType.typeName == actualSchema(fieldName).dataType.typeName, "Datatypes do not match")
     }
   }
   test("Save Data"){
-    val sampleAccountDataFrame = helperFunc.loadDataSet[accountData]("src/test/resources/sampleAccountData.txt")(spark, product[accountData])
-    val sampleCustomerDataFrame = helperFunc.loadDataSet[customerData]("src/test/resources/sampleCustomerData.txt")(spark, product[customerData])
-    val testData = helperFunc.createCustomerAccountDataSet(spark, sampleAccountDataFrame, sampleCustomerDataFrame)
-    helperFunc.saveDataSet("src/test/resources/sampleCustomerAccountData", testData)(product[customerAccountData])
+    val sampleAccountDataSet = helperFunc.loadDataSet[accountData]("src/test/resources/sampleAccountData.txt")(spark, product[accountData])
+    val sampleCustomerDataSet = helperFunc.loadDataSet[customerData]("src/test/resources/sampleCustomerData.txt")(spark, product[customerData])
+    val testData = helperFunc.createCustomerAccountDataSet(spark, sampleAccountDataSet, sampleCustomerDataSet)
+    helperFunc.saveDataSet("src/test/resources/sampleCustomerAccountData", testData)
     val savedData = spark.read.parquet("src/test/resources/sampleCustomerAccountData").as[customerAccountData]
 
     for (fieldName <- testData.schema.fieldNames) {
