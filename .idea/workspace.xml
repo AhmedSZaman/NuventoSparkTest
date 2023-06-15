@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="007495e1-fde0-4ef0-8fe8-a4fea2e0db06" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/AhmedSparkTest/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/AhmedSparkTest/build.sbt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AhmedSparkTest/src/main/scala/version/Answers.scala" beforeDir="false" afterPath="$PROJECT_DIR$/AhmedSparkTest/src/main/scala/version/Answers.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AhmedSparkTest/src/main/scala/version/QuestionFunctions.scala" beforeDir="false" afterPath="$PROJECT_DIR$/AhmedSparkTest/src/main/scala/version/QuestionFunctions.scala" afterDir="false" />
-    </list>
+    <list default="true" id="007495e1-fde0-4ef0-8fe8-a4fea2e0db06" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,7 +34,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/Ahmed Sher/git/NuventoSparkTest/AhmedSparkTest",
+    "last_opened_file_path": "C:/Users/Ahmed Sher/git/NuventoSparkTest",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
