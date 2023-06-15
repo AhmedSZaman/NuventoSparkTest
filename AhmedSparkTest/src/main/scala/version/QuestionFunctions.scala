@@ -2,8 +2,11 @@ package version
 
 import org.apache.spark.sql.{Dataset, Encoder, SparkSession}
 import org.apache.spark.sql.functions._
-
+/** All the main functions for joining datasets
+ */
 class QuestionFunctions {
+  /**Loads data from specfied file path to a dataset with a chosen schema
+   */
   def loadDataSet[T](path: String)(implicit spark: SparkSession, encoder: Encoder [T]): Dataset[T]={
 
     val loadDataSet = spark.read
@@ -16,9 +19,14 @@ class QuestionFunctions {
     loadDataSet
   }
 
+  /** saves the specfied dataset to a parquet file
+   */
   def saveDataSet[T](path: String, dataSetToSave: Dataset[T]): Unit = {
     dataSetToSave.coalesce(1).write.mode("overwrite").parquet(path)
   }
+
+  /** Joins the account data and customer dataset (Question1)
+   */
   def createCustomerAccountDataSet(implicit spark: SparkSession, accountDataSet: Dataset[accountData], customerDataSet: Dataset[customerData]): Dataset[customerAccountData]={
     import spark.implicits._
     val numberAccounts = accountDataSet
@@ -45,11 +53,11 @@ class QuestionFunctions {
     CustomerAccountOutput
   }
 
-
+  /** Joins the address data and customerAccount data (Question2)
+   */
   def createCustomerDocumentDataSet(implicit spark: SparkSession, addressDataSet: Dataset[addressData],
                                     customerAccountDataSet: Dataset[customerAccountData]): Dataset[customerDocumentData] = {
     import spark.implicits._
-    //addressDataSet.join(customerAccountDataSet, Seq("customerId")).show(truncate = false)
 
     val parsedAddressDataSet = addressDataSet
       .select("address", "customerID")
