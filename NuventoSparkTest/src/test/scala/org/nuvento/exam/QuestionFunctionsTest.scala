@@ -7,7 +7,7 @@ import org.nuvento.exam.model.{accountModel, addressModel, customerAccountModel,
 import org.scalatest._
 import org.scalatest.funsuite.AnyFunSuite
 
-class QuestionFunctionTest extends AnyFunSuite with BeforeAndAfterAll {
+class QuestionFunctionsTest extends AnyFunSuite with BeforeAndAfterAll {
   val helperFunc = new QuestionFunctions()
   val accountDataSet = helperFunc.loadDataSet[accountModel]("src/test/resources/sampleAccountData.txt")(spark, product[accountModel])
   val customerDataSet = helperFunc.loadDataSet[customerModel]("src/test/resources/sampleCustomerData.txt")(spark, product[customerModel])
