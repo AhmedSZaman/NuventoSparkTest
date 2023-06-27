@@ -6,7 +6,7 @@ import org.apache.spark.sql._
 import org.nuvento.exam.model.{accountModel, addressModel, customerAccountModel, customerDocumentModel, customerModel, parsedAddressModel}
 /** All the main functions for joining datasets
  */
-class QuestionFunctions {
+class HelperFunctions {
 
   /**Loads data from specified file path to a dataset with a chosen schema
    *

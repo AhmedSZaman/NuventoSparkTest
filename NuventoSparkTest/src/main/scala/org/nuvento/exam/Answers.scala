@@ -4,7 +4,7 @@ import com.typesafe.config.{Config, ConfigFactory}
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.{DataFrame, Dataset, SparkSession}
 import org.nuvento.exam.model.{accountModel, addressModel, customerAccountModel, customerDocumentModel, customerModel, parsedAddressModel}
-/** Loads in filepath from config file and runs methods from QuestionFunctions class to give final answers
+/** Loads in filepath from config file and runs methods from HelperFunctions class to give final answers
  *
  * @author Ahmed Sher Zaman
  * @version scala version 2.12.10
@@ -12,7 +12,7 @@ import org.nuvento.exam.model.{accountModel, addressModel, customerAccountModel,
 
 object Answers {
   def main(args: Array[String]): Unit = {
-    val helperFunc = new QuestionFunctions()
+    val helperFunc = new HelperFunctions()
     val config: Config = ConfigFactory.load()
 
     // Loads variables from config file, located in resources/application.conf
@@ -51,7 +51,7 @@ object Answers {
    *
    */
   def executeQuestion1(question1Variables: (SparkSession, String,  String,
-                               String,QuestionFunctions)): Unit  = {
+                               String,HelperFunctions)): Unit  = {
     val  (spark, accountDataPath, customerDataPath, customerAccountDataPath, helperFunc)= question1Variables
     import spark.implicits._
 
@@ -75,7 +75,7 @@ object Answers {
    *
    * @param question2Variables curried variable consisting of spark session, file paths, and helper function class
    */
-  def executeQuestion2(question2Variables: (SparkSession, String, String, String, QuestionFunctions)): Unit = {
+  def executeQuestion2(question2Variables: (SparkSession, String, String, String, HelperFunctions)): Unit = {
     val  (spark, customerAccountDataPath, addressDataPath, customerDocumentPath, helperFunc)= question2Variables
     import spark.implicits._
     implicit val implicitSpark: SparkSession = spark

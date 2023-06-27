@@ -7,8 +7,8 @@ import org.nuvento.exam.model.{accountModel, addressModel, customerAccountModel,
 import org.scalatest._
 import org.scalatest.funsuite.AnyFunSuite
 
-class QuestionFunctionsTest extends AnyFunSuite with BeforeAndAfterAll {
-  val helperFunc = new QuestionFunctions()
+class HelperFunctionsTest extends AnyFunSuite with BeforeAndAfterAll {
+  val helperFunc = new HelperFunctions()
   val accountDataSet = helperFunc.loadDataSet[accountModel]("src/test/resources/sampleAccountData.txt")(spark, product[accountModel])
   val customerDataSet = helperFunc.loadDataSet[customerModel]("src/test/resources/sampleCustomerData.txt")(spark, product[customerModel])
   Logger.getLogger("org").setLevel(Level.ERROR)
@@ -20,8 +20,6 @@ class QuestionFunctionsTest extends AnyFunSuite with BeforeAndAfterAll {
     .getOrCreate()
 
   import spark.implicits._
-
-
 
   override def afterAll(): Unit = {
     spark.stop()

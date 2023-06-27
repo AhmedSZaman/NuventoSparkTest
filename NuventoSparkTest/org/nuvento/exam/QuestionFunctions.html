@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>NuventoSparkTest documentation  - org.nuvento.exam.QuestionFunctions</title>
-          <meta name="description" content="NuventoSparkTest documentation - org.nuvento.exam.QuestionFunctions" />
-          <meta name="keywords" content="NuventoSparkTest documentation org.nuvento.exam.QuestionFunctions" />
+          <title>NuventoSparkTest documentation  - org.nuvento.exam.HelperFunctions</title>
+          <meta name="description" content="NuventoSparkTest documentation - org.nuvento.exam.HelperFunctions" />
+          <meta name="keywords" content="NuventoSparkTest documentation org.nuvento.exam.HelperFunctions" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       
@@ -208,7 +208,7 @@
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="org.nuvento.exam.QuestionFunctions"><span>QuestionFunctions</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="org.nuvento.exam.HelperFunctions"><span>QuestionFunctions</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -229,9 +229,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="org.nuvento.exam.QuestionFunctions#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;():org.nuvento.exam.QuestionFunctions"></a><a id="&lt;init&gt;:QuestionFunctions"></a>
+      <a id="&lt;init&gt;():org.nuvento.exam.HelperFunctions"></a><a id="&lt;init&gt;:QuestionFunctions"></a>
       <span class="permalink">
-      <a href="../../../org/nuvento/exam/QuestionFunctions.html#&lt;init&gt;():org.nuvento.exam.QuestionFunctions" title="Permalink">
+      <a href="../../../org/nuvento/exam/QuestionFunctions.html#&lt;init&gt;():org.nuvento.exam.HelperFunctions" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -572,7 +572,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">loadDataSet</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="path">path: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="spark">spark: <span class="extype" name="org.apache.spark.sql.SparkSession">SparkSession</span></span>, <span name="encoder">encoder: <span class="extype" name="org.apache.spark.sql.Encoder">Encoder</span>[<span class="extype" name="org.nuvento.exam.QuestionFunctions.loadDataSet.T">T</span>]</span>)</span><span class="result">: <span class="extype" name="org.apache.spark.sql.Dataset">Dataset</span>[<span class="extype" name="org.nuvento.exam.QuestionFunctions.loadDataSet.T">T</span>]</span>
+        <span class="name">loadDataSet</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="path">path: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="spark">spark: <span class="extype" name="org.apache.spark.sql.SparkSession">SparkSession</span></span>, <span name="encoder">encoder: <span class="extype" name="org.apache.spark.sql.Encoder">Encoder</span>[<span class="extype" name="org.nuvento.exam.HelperFunctions.loadDataSet.T">T</span>]</span>)</span><span class="result">: <span class="extype" name="org.apache.spark.sql.Dataset">Dataset</span>[<span class="extype" name="org.nuvento.exam.HelperFunctions.loadDataSet.T">T</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Loads data from specified file path to a dataset with a chosen schema
@@ -648,7 +648,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">saveDataSet</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="path">path: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="dataSetToSave">dataSetToSave: <span class="extype" name="org.apache.spark.sql.Dataset">Dataset</span>[<span class="extype" name="org.nuvento.exam.QuestionFunctions.saveDataSet.T">T</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">saveDataSet</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="path">path: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="dataSetToSave">dataSetToSave: <span class="extype" name="org.apache.spark.sql.Dataset">Dataset</span>[<span class="extype" name="org.nuvento.exam.HelperFunctions.saveDataSet.T">T</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
       <p class="shortcomment cmt">saves the specified dataset to a parquet file

@@ -8,7 +8,7 @@ import org.scalatest.funsuite.AnyFunSuite
 import java.io.File
 
 class AnswersTest extends AnyFunSuite with BeforeAndAfterAll {
-  val helperFunc = new QuestionFunctions()
+  val helperFunc = new HelperFunctions()
   Logger.getLogger("org").setLevel(Level.ERROR)
 
   val accountDataPath: String = "src/test/resources/sampleAccountData.txt"
